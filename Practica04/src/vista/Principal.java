@@ -5,6 +5,8 @@
  */
 package vista;
 
+import controlador.GestionDato;
+
 /**
  *
  * @author PC-MATIC
@@ -16,6 +18,11 @@ public class Principal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        GestionDato gD = new GestionDato ();
+        
+        VentanaPrincipal v = new VentanaPrincipal("Registro de Torneo",gD);
+        v.setVisible(true);
+        
     }
     
 }
