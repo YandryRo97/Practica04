@@ -5,8 +5,11 @@
  */
 package controlador;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import vista.VentanaEquipo;
+import vista.VentanaPais;
 import vista.VentanaPrincipal;
 
 /**
@@ -18,7 +21,7 @@ public class EventoVentanaPrincipal implements ActionListener{
     
     private VentanaPrincipal ventana;
     private GestionDato gD;
-
+    
     public EventoVentanaPrincipal(VentanaPrincipal ventana) {
         this.ventana = ventana;
     }
@@ -52,14 +55,21 @@ public class EventoVentanaPrincipal implements ActionListener{
             VentanaPelicula vPe = new VentanaPelicula(this.ventana.getgD());
             vPe.setVisible(true);
             this.ventana.getEscritorio().add(vPe);
-        }
+        }*/
 
         if (e.getSource().equals(this.ventana.getMenuItemList().get(2))) {
-            VentanaCargo vC = new VentanaCargo(this.ventana.getgD());
-            vC.setVisible(true);
-            this.ventana.getEscritorio().add(vC);
+            VentanaEquipo vE = new VentanaEquipo(this.ventana.getgD());
+            vE.setVisible(true);
+            this.ventana.getEscritorio().add(vE);
         }
-*/
+        
+        if (e.getSource().equals(this.ventana.getMenuItemList().get(4))) {
+            VentanaPais vP = new VentanaPais(this.ventana.getgD());
+            vP.setVisible(true);
+             this.ventana.getEscritorio().add(vP);
+           // this.ventana.get
+        }
+
         
         
     }
