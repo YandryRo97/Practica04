@@ -7,13 +7,35 @@ package controlador;
 
 import java.util.List;
 import modelo.Equipo;
+import modelo.Estadio;
+import modelo.Grupo;
+import modelo.Jugador;
 import modelo.Pais;
+import modelo.Torneo;
 
 /**
  *
  * @author PC-MATIC
  */
-public class GestionDato {
+public class GestionDato 
+{
+    
+    private List<Equipo> equipoList;
+    private List<Pais> paisList;
+    private List<Torneo> torneoList;
+    private List<Estadio> estadioList;
+    private List<Grupo> grupoList;
+    private List<Jugador> jugadorList;
+
+    public GestionDato(List<Equipo> equipoList, List<Pais> paisList, List<Torneo> torneoList, List<Estadio> estadioList, List<Grupo> grupoList, List<Jugador> jugadorList) {
+        this.equipoList = equipoList;
+        this.paisList = paisList;
+        this.torneoList = torneoList;
+        this.estadioList = estadioList;
+        this.grupoList = grupoList;
+        this.jugadorList = jugadorList;
+    }
+   
     /*private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica02_04PU");
     
     public boolean persistirEquipo(Equipo e) {
@@ -153,6 +175,54 @@ public class GestionDato {
             em.close();
         }
         return retorno;
+    }*/
+    
+
+    public List<Equipo> getEquipoList() {
+        return equipoList;
     }
-    */
+
+    public void setEquipoList(List<Equipo> equipoList) {
+        this.equipoList = equipoList;
+    }
+
+    public List<Pais> getPaisList() {
+        return paisList;
+    }
+
+    public void setPaisList(List<Pais> paisList) {
+        this.paisList = paisList;
+    }
+
+    public List<Torneo> getTorneoList() {
+        return torneoList;
+    }
+
+    public void setTorneoList(List<Torneo> torneoList) {
+        this.torneoList = torneoList;
+    }
+
+    public List<Estadio> getEstadioList() {
+        return estadioList;
+    }
+
+    public void setEstadioList(List<Estadio> estadioList) {
+        this.estadioList = estadioList;
+    }
+
+    public List<Grupo> getGrupoList() {
+        return grupoList;
+    }
+
+    public void setGrupoList(List<Grupo> grupoList) {
+        this.grupoList = grupoList;
+    }
+
+    public List<Jugador> getJugadorList() {
+        return jugadorList;
+    }
+
+    public void setJugadorList(List<Jugador> jugadorList) {
+        this.jugadorList = jugadorList;
+    }
 }

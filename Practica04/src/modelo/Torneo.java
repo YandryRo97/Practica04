@@ -18,6 +18,14 @@ public class Torneo implements Serializable
     private String fechaIns;
     private Estadio estadio;
 
+    public Torneo(Long id, String fechaIns, Estadio estadio) {
+        this.id = id;
+        this.fechaIns = fechaIns;
+        this.estadio = estadio;
+    }
+    
+    
+
     public Long getId() {
         return id;
     }

@@ -21,6 +21,15 @@ public class Estadio implements Serializable
     private String ciudad;
     private double capacidad;
 
+    public Estadio(Long id, String nombre, String ciudad, double capacidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.capacidad = capacidad;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

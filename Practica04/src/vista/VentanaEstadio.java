@@ -69,11 +69,11 @@ public class VentanaEstadio extends JInternalFrame {
         this.encabezado[2] = "Ciudad";
         this.encabezado[3] = "Capacidad";
         
-        Estadio e = new Estadio();
+        /*Estadio e = new Estadio();
         e.getCapacidad();
         e.getId();
         e.getCiudad();
-        e.getNombre();
+        e.getNombre();*/
          
     }
 }

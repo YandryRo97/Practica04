@@ -18,6 +18,14 @@ public class Grupo implements Serializable
     private String nombre;
     private int numeroEqui;
 
+    public Grupo(Long id, String nombre, int numeroEqui) {
+        this.id = id;
+        this.nombre = nombre;
+        this.numeroEqui = numeroEqui;
+    }
+    
+    
+
     public Long getId() {
         return id;
     }
