@@ -5,7 +5,7 @@
  */
 package vista;
 
-import controlador.EventoEquipo;
+import controlador.EventoJugador;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -22,15 +22,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.Equipo;
-import modelo.Grupo;
+import modelo.Jugador;
 import modelo.Pais;
-import modelo.Torneo;
 
 /**
  *
- * @author USER
+ * @author USUARIO
  */
-public class VentanaEquipo extends JInternalFrame{
+public class VentanaJugador extends JInternalFrame{
     
     private List<JLabel> etiList;
     private List<JTextField> txtList;
@@ -47,9 +46,8 @@ public class VentanaEquipo extends JInternalFrame{
     private JScrollPane scroll;
     private JComboBox combo1;
     private JComboBox combo2;
-    private JComboBox combo3;
     
-    public VentanaEquipo(GestionDato gestionDato){
+    public VentanaJugador (GestionDato gestionDato){
         super("Registro Equipo", true, true, true, true);
         this.setSize(560, 300);
         this.gestionDato = gestionDato;
@@ -57,32 +55,33 @@ public class VentanaEquipo extends JInternalFrame{
         this.setVisible(true);
     }
     
-    public void iniciaComponente(){
+    public void iniciaComponente (){
         
         this.etiList = new ArrayList<JLabel>();
         this.etiList.add(new JLabel("Id"));
-        this.etiList.add(new JLabel("Numero Jugadores"));
+        this.etiList.add(new JLabel("Nombre"));
+        this.etiList.add(new JLabel("Apellido"));
         this.etiList.add(new JLabel("Pais"));
-        this.etiList.add(new JLabel("Torneo"));
-        this.etiList.add(new JLabel("Grupo"));
+        this.etiList.add(new JLabel("Equipo"));
         
         this.txtList = new ArrayList<JTextField>();
         this.txtList.add(new JTextField(5));
-        this.txtList.add(new JTextField(7));
+        this.txtList.add(new JTextField(5));
+        this.txtList.add(new JTextField(5));
         
         this.boton= new JButton("Guardar");
+     
+        this.boton.addActionListener(new EventoJugador(this));
         
-   
-        this.boton.addActionListener(new EventoEquipo(this));
-    
         this.encabezado = new Object[5];
         this.encabezado[0]="Id";
-        this.encabezado[1]="Numero Jugadores";
-        this.encabezado[2]="Pais";
-        this.encabezado[3]="Torneo";
-        this.encabezado[4]="Grupo";
-       
+        this.encabezado[1]="Nombre";
+        this.encabezado[2]="Apellido";
+        this.encabezado[3]="Pais";
+        this.encabezado[4]="Equipo";
+        
         this.datos = cargaDatosTabla(this.gestionDato.getEquipoList().size(),5);
+        
         this.modeloTabla = new DefaultTableModel(this.datos,this.encabezado);
         this.tabla = new JTable(modeloTabla);
         this.scroll = new JScrollPane(this.tabla);
@@ -97,22 +96,19 @@ public class VentanaEquipo extends JInternalFrame{
         this.panelGuardar.add(this.txtList.get(0));
         this.panelGuardar.add(this.etiList.get(1));
         this.panelGuardar.add(this.txtList.get(1));
-        
         this.panelGuardar.add(this.etiList.get(2));
+        this.panelGuardar.add(this.txtList.get(2));
+        
+        this.panelGuardar.add(this.etiList.get(3));
         this.combo1=new JComboBox();
         this.cargarCombo1();
         this.panelGuardar.add(this.combo1);
         
-        this.panelGuardar.add(this.etiList.get(3));
+        this.panelGuardar.add(this.etiList.get(4));
         this.combo2=new JComboBox();
         this.cargarCombo2();
         this.panelGuardar.add(this.combo2);
         
-        this.panelGuardar.add(this.etiList.get(4));
-        this.combo3=new JComboBox();
-        this.cargarCombo3();
-        this.panelGuardar.add(this.combo3);
-       
 	this.panelVer.add(this.scroll, BorderLayout.CENTER);
 	this.panelGuardar.add(this.boton);
 	this.panelInicial.add(this.panelGuardar);
@@ -120,18 +116,17 @@ public class VentanaEquipo extends JInternalFrame{
         this.panelVer.add(this.scroll, BorderLayout.CENTER);
         this.add(panelInicial);
     }
-    
     public Object[][]cargaDatosTabla(int h,int w)
     {
         Object[][]retorno=new Object[h][w];
         int i=0;
-        for(Equipo c:this.gestionDato.getEquipoList())
+        for(Jugador j:this.gestionDato.getJugadorList())
         {
-           retorno[i][0]=c.getId();
-           retorno[i][1]=c.getNumJugadores();
-           retorno[i][2]=c.getPais().getNombre();
-           retorno[i][3]=c.getTorneo().getEstadio().getNombre();
-           retorno[i][4]=c.getGrupo().getNombre();
+           retorno[i][0]=j.getId();
+           retorno[i][1]=j.getNombre();
+           retorno[i][2]=j.getApellido();
+           retorno[i][3]=j.getPais().getNombre();
+           retorno[i][4]=j.getEquipo().getTorneo().getEstadio().getNombre();
            i++;
         }
         
@@ -148,20 +143,10 @@ public class VentanaEquipo extends JInternalFrame{
     
     public void cargarCombo2(){
         this.combo2.removeAllItems();
-        for(Torneo t: this.gestionDato.getTorneoList())
+        for(Equipo e: this.gestionDato.getEquipoList())
         {
-            this.combo2.addItem(t.getEstadio().getNombre());
+            this.combo2.addItem(e.getTorneo().getEstadio().getNombre());
         }
-    }
-
-
-    public void cargarCombo3()
-    {
-       this.combo3.removeAllItems();
-       for(Grupo g: this.gestionDato.getGrupoList())
-       {
-           this.combo3.addItem(g.getNombre());
-       }
     }
 
     public List<JLabel> getEtiList() {
@@ -283,16 +268,6 @@ public class VentanaEquipo extends JInternalFrame{
     public void setCombo2(JComboBox combo2) {
         this.combo2 = combo2;
     }
-
-    public JComboBox getCombo3() {
-        return combo3;
-    }
-
-    public void setCombo3(JComboBox combo3) {
-        this.combo3 = combo3;
-    }
-    
     
     
 }
-

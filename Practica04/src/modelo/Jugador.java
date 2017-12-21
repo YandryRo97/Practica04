@@ -21,7 +21,6 @@ public class Jugador implements Serializable
     private String nombre;
     private String apellido;
     private Pais pais;
-    
     private Equipo equipo;
 
     public Jugador(Long id, String nombre, String apellido, Pais pais, Equipo equipo) {

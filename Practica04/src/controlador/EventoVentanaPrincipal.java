@@ -9,6 +9,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.VentanaEquipo;
+import vista.VentanaGrupo;
+import vista.VentanaJugador;
 import vista.VentanaPais;
 import vista.VentanaPrincipal;
 
@@ -46,16 +48,17 @@ public class EventoVentanaPrincipal implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        /*if (e.getSource().equals(this.ventana.getMenuItemList().get(0))) {
-            VentanaPersona vP = new VentanaPersona(this.ventana.getgD());
-            vP.setVisible(true);
-            this.ventana.getEscritorio().add(vP);
+        if (e.getSource().equals(this.ventana.getMenuItemList().get(3))) {
+            VentanaGrupo vG = new VentanaGrupo(this.ventana.getgD());
+            vG.setVisible(true);
+            this.ventana.getEscritorio().add(vG);
         }
-        if (e.getSource().equals(this.ventana.getMenuItemList().get(1))) {
-            VentanaPelicula vPe = new VentanaPelicula(this.ventana.getgD());
-            vPe.setVisible(true);
-            this.ventana.getEscritorio().add(vPe);
-        }*/
+        
+        if (e.getSource().equals(this.ventana.getMenuItemList().get(5))) {
+            VentanaJugador vJ = new VentanaJugador(this.ventana.getgD());
+            vJ.setVisible(true);
+            this.ventana.getEscritorio().add(vJ);
+        }
 
         if (e.getSource().equals(this.ventana.getMenuItemList().get(2))) {
             VentanaEquipo vE = new VentanaEquipo(this.ventana.getgD());
