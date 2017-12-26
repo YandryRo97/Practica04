@@ -19,9 +19,9 @@ public class Estadio implements Serializable
     private Long id;
     private String nombre;
     private String ciudad;
-    private double capacidad;
+    private Long capacidad;
 
-    public Estadio(Long id, String nombre, String ciudad, double capacidad) {
+    public Estadio(Long id, String nombre, String ciudad, Long capacidad) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
@@ -58,7 +58,7 @@ public class Estadio implements Serializable
         return capacidad;
     }
 
-    public void setCapacidad(double capacidad) {
+    public void setCapacidad(Long capacidad) {
         this.capacidad = capacidad;
     }
 

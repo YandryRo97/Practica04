@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
-import controlador.EventoEstadio;
+import controlador.EventoTorneo;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,13 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import modelo.Estadio;
+import modelo.Torneo;
 
 /**
  *
- * @author PC-MATIC
+ * @author Alex Reinoso
  */
-public class VentanaEstadio extends JInternalFrame {
+public class VentanaTorneo extends JInternalFrame {
 
     private List<JLabel> etiList;
     private List<JTextField> txtList;
@@ -39,12 +37,89 @@ public class VentanaEstadio extends JInternalFrame {
     private DefaultTableModel modeloTabla;
     private JTable tabla;
     private JScrollPane scroll;
+    private JComboBox combo;
 
-    public VentanaEstadio(GestionDato gestionDato) {
-        super("Registro Estadio", true, true, true, true);
+    public VentanaTorneo(GestionDato gestionDato) {
+        super("Registro Torneo", true, true, true);
         this.setSize(500, 300);
         this.gestionDato = gestionDato;
         this.iniciaComponente();
+        this.setVisible(true);
+    }
+
+    public void iniciaComponente() {
+
+        this.etiList = new ArrayList<JLabel>();
+        this.etiList.add(new JLabel("Id"));
+        this.etiList.add(new JLabel("Fecha inscripcion"));
+        this.etiList.add(new JLabel("Estadio"));
+
+        this.txtList = new ArrayList<JTextField>();
+        this.txtList.add(new JTextField(5));
+        this.txtList.add(new JTextField(7));
+        this.txtList.add(new JTextField(5));
+        
+        this.boton = new JButton("Guardar");
+        
+        this.boton.addActionListener(new EventoTorneo(this));
+        
+        
+        this.encabezado = new Object[3];
+        this.encabezado[0] = "Id";
+        this.encabezado[1] = "Fecha inscripcion";
+        this.encabezado[2] = "Estadio";
+        
+        this.datos = cargaDatosTabla(this.gestionDato.getTorneoList().size(),3);
+        this.modeloTabla = new DefaultTableModel(this.datos, this.encabezado);
+        this.tabla = new JTable(modeloTabla);
+        this.scroll = new JScrollPane(this.tabla);
+        
+        LayoutManager disenio = new GridLayout(5, 2);
+        LayoutManager disenio2 = new GridLayout(2, 1);
+        this.panelVer= new JPanel(new BorderLayout());
+	this.panelGuardar = new JPanel(disenio);
+	this.panelInicial = new JPanel(disenio2);
+        
+        this.panelGuardar.add(this.etiList.get(0));
+        this.panelGuardar.add(this.txtList.get(0));
+        this.panelGuardar.add(this.etiList.get(1));
+        this.panelGuardar.add(this.txtList.get(1));
+        this.panelGuardar.add(this.etiList.get(2));
+        this.panelGuardar.add(this.txtList.get(2));
+        
+        
+        this.panelVer.add(this.scroll, BorderLayout.CENTER);
+	this.panelGuardar.add(this.boton);
+	this.panelInicial.add(this.panelGuardar);
+	this.panelInicial.add(this.panelVer);
+        this.panelVer.add(this.scroll, BorderLayout.CENTER);
+        this.add(panelInicial);
+         
+    }
+    
+    public Object[][] cargaDatosTabla(int h, int w){
+        
+        Object[][] retorno = new Object[h][w];
+        int i=0;
+        for(Torneo t: this.gestionDato.getTorneoList()){
+            
+            retorno[i][0] = t.getId();
+            retorno[i][1] = t.getFechaIns();
+            retorno[i][2] = t.getEstadio();
+            
+            i++;
+            
+        }
+        return retorno;
+    }
+    
+    public void cargarCombo(){
+        
+        this.combo.removeAllItems();
+        for(Torneo to : this.gestionDato.getTorneoList()){
+            this.combo.addItem(to.getEstadio());
+        }
+        
     }
 
     public List<JLabel> getEtiList() {
@@ -151,69 +226,12 @@ public class VentanaEstadio extends JInternalFrame {
         this.scroll = scroll;
     }
 
-    public void iniciaComponente() {
-        this.etiList = new ArrayList<JLabel>();
-        this.etiList.add(new JLabel("Ingrese el id"));
-        this.etiList.add(new JLabel("Ingrese el nombre"));
-        this.etiList.add(new JLabel("Ingrese la ciudad"));
-        this.etiList.add(new JLabel("Ingrese la capacidad"));
-
-        this.txtList = new ArrayList<JTextField>();
-        this.txtList.add(new JTextField(10));
-        this.txtList.add(new JTextField(10));
-        this.txtList.add(new JTextField(10));
-        this.txtList.add(new JTextField(10));
-
-        this.boton = new JButton("Guardar");
-        this.boton2 = new JButton("Limpiar");
-        
-        this.boton.addActionListener(new EventoEstadio(this));
-        this.boton2.addActionListener(new EventoEstadio(this));
-        
-
-        this.encabezado = new Object[4];
-        this.encabezado[0] = "Id";
-        this.encabezado[1] = "Nombre";
-        this.encabezado[2] = "Ciudad";
-        this.encabezado[3] = "Capacidad";
-
-        this.datos = cargaDatosTabla(this.gestionDato.getEstadioList().size(), 4);
-        this.modeloTabla = new DefaultTableModel(this.datos, this.encabezado);
-        this.tabla = new JTable(modeloTabla);
-        this.scroll = new JScrollPane(this.tabla);
-
-        this.panelGuardar.add(this.etiList.get(0));
-        this.panelGuardar.add(this.txtList.get(0));
-        this.panelGuardar.add(this.etiList.get(1));
-        this.panelGuardar.add(this.txtList.get(1));
-        this.panelGuardar.add(this.etiList.get(2));
-        this.panelGuardar.add(this.txtList.get(2));
-        this.panelGuardar.add(this.etiList.get(3));
-        this.panelGuardar.add(this.txtList.get(3));
-
-        this.panelVer.add(this.scroll, BorderLayout.CENTER);
-        this.panelGuardar.add(this.boton);
-        this.panelInicial.add(this.panelGuardar);
-        this.panelInicial.add(this.panelVer);
-        this.panelVer.add(this.scroll, BorderLayout.CENTER);
-        this.add(panelInicial);
-
+    public JComboBox getCombo() {
+        return combo;
     }
 
-    public Object[][] cargaDatosTabla(int h, int w) {
-
-        Object[][] retorno = new Object[h][w];
-        int i = 0;
-        for(Estadio es : this.gestionDato.getEstadioList()){
-            
-            retorno[i][0] = es.getId();
-            retorno[i][1] = es.getNombre();
-            retorno[i][2] = es.getCapacidad();
-            retorno[i][3] = es.getCapacidad();
-            
-            i++;
-        }
-        return retorno;
-
+    public void setCombo(JComboBox combo) {
+        this.combo = combo;
     }
+    
 }
