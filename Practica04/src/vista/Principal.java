@@ -34,8 +34,8 @@ public class Principal {
     List<Jugador> J = new ArrayList<Jugador>();
         
         
-        Pais p=new Pais(Long.parseLong("131"),"Ecuador","Ecuatoriana",Long.parseLong("140000"));
-        Estadio est=new Estadio(Long.parseLong("141"),"Atahualpa","Quito",100);
+      Pais p=new Pais(Long.parseLong("131"),"Ecuador","Ecuatoriana",Long.parseLong("140000"));
+        Estadio est=new Estadio(Long.parseLong("198"),"Atahualpa","Quito",Long.parseLong("500000"));
         Torneo tor=new Torneo(Long.parseLong("151"),"14/Dic/2018",est);
         Grupo gr=new Grupo(Long.parseLong("161"),"Grupo A",4);
         Equipo e=new Equipo(Long.parseLong("171"),25,p,tor,gr);

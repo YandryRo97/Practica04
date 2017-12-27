@@ -6,14 +6,17 @@
 package modelo;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
  * @author PC-MATIC
  */
+@Entity
 public class Grupo implements Serializable 
 {
-    
+    @Id
     private Long id;
     private String nombre;
     private int numeroEqui;

@@ -6,6 +6,8 @@
 package modelo;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import modelo.Equipo;
 import modelo.Pais;
 
@@ -13,10 +15,10 @@ import modelo.Pais;
  *
  * @author PC-MATIC
  */
-
+@Entity
 public class Jugador implements Serializable 
 {
-   
+   @Id
     private Long id;
     private String nombre;
     private String apellido;

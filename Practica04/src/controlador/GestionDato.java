@@ -6,6 +6,9 @@
 package controlador;
 
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import modelo.Equipo;
 import modelo.Estadio;
 import modelo.Grupo;
@@ -19,7 +22,7 @@ import modelo.Torneo;
  */
 public class GestionDato 
 {
-    
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica04PU");
     private List<Equipo> equipoList;
     private List<Pais> paisList;
     private List<Torneo> torneoList;
@@ -36,7 +39,7 @@ public class GestionDato
         this.jugadorList = jugadorList;
     }
    
-    /*private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Practica02_04PU");
+    
     
     public boolean persistirEquipo(Equipo e) {
         boolean retorno=false;
@@ -175,7 +178,7 @@ public class GestionDato
             em.close();
         }
         return retorno;
-    }*/
+    }
     
 
     public List<Equipo> getEquipoList() {
