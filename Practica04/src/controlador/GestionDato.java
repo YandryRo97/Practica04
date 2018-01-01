@@ -180,7 +180,283 @@ public class GestionDato
         return retorno;
     }
     
+    ////////////////////////////////////////////////////////////////////////////
+    
+     public boolean persistirGrupo(Grupo g) {
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(g);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+     
+    public List<Grupo> leerGrupo() {
+        List<Grupo> retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        retorno=em.createQuery("SELECT e FROM Equipo e ORDER BY e.id").getResultList();        
+        em.close();
+        return retorno;
+    }
+     
+     
+    public boolean actualizarGrupo(Grupo g) {  
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(g);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
 
+    public Grupo buscarGrupo(int i) {
+        Grupo retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            retorno=em.find(Grupo.class, i);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+
+    public boolean eliminarGrupo(Grupo g) {        
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            em.remove(em.merge(g));
+            em.getTransaction().commit();
+            retorno=true;
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+    
+     public boolean persistirJugador(Jugador j) {
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(j);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+     
+    public List<Jugador> leerJugador() {
+        List<Jugador> retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        retorno=em.createQuery("SELECT e FROM Equipo e ORDER BY e.id").getResultList();        
+        em.close();
+        return retorno;
+    }
+     
+     
+    public boolean actualizarJugador(Jugador j) {  
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(j);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+
+    public Jugador buscarJugador(int i) {
+        Jugador retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            retorno=em.find(Jugador.class, i);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+
+    public boolean eliminarJugador(Jugador j) {        
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            em.remove(em.merge(j));
+            em.getTransaction().commit();
+            retorno=true;
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    
+    public boolean persistirEstadio(Estadio e) {
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(e);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+     
+    public List<Estadio> leerEstadio() {
+        List<Estadio> retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        retorno=em.createQuery("SELECT e FROM Equipo e ORDER BY e.id").getResultList();        
+        em.close();
+        return retorno;
+    }
+     
+     
+    public boolean actualizarEstadio(Estadio e) {  
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(e);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+
+    public Estadio buscarEstadio(int i) {
+        Estadio retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            retorno=em.find(Estadio.class, i);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+
+    public boolean eliminarEstadio(Estadio e) {        
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            em.remove(em.merge(e));
+            em.getTransaction().commit();
+            retorno=true;
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public boolean persistirTorneo(Torneo t) {
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+     
+    public List<Torneo> leerTorneo() {
+        List<Torneo> retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        retorno=em.createQuery("SELECT e FROM Equipo e ORDER BY e.id").getResultList();        
+        em.close();
+        return retorno;
+    }
+     
+     
+    public boolean actualizarTorneo(Torneo t) {  
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+        em.close();
+        retorno=true;
+        return retorno;
+    }
+
+    public Torneo buscarTorneo(int i) {
+        Torneo retorno=null;        
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            retorno=em.find(Torneo.class, i);
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+
+    public boolean eliminarTorneo(Torneo t) {        
+        boolean retorno=false;
+        EntityManager em = this.emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            em.remove(em.merge(t));
+            em.getTransaction().commit();
+            retorno=true;
+        }catch(Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
+   
     public List<Equipo> getEquipoList() {
         return equipoList;
     }

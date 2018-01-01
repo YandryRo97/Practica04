@@ -7,6 +7,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import modelo.Grupo;
 import vista.VentanaGrupo;
 
 /**
@@ -39,8 +41,40 @@ public class EventoGrupo  implements ActionListener{
     }
     
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        
+    public void actionPerformed(ActionEvent e) {
+      
+       try
+       {
+           if (e.getSource().equals(this.ventanaGrupo.getBoton()))
+           {
+                Long id= Long.parseLong(this.ventanaGrupo.getTxtList().get(0).getText());
+                String  n= this.ventanaGrupo.getTxtList().get(1).getText();
+                int numEqui = Integer.parseInt(this.ventanaGrupo.getTxtList().get(2).getText());
+               
+                for (Grupo gr:this.ventanaGrupo.getGestionDato().getGrupoList()) 
+                {
+                    if ((id == gr.getId())&& (n == gr.getNombre()) && (numEqui== gr.getNumeroEqui()))
+                    {
+                        throw new ExcepcionDatoRepetido("Cargo repetido");
+                    }
+                }
+                Grupo grupo = new Grupo(id,n,numEqui);
+                JOptionPane.showMessageDialog(this.ventanaGrupo,"Guardado");
+                ventanaGrupo.getGestionDato().getGrupoList().add(grupo);
+               
+           }
+           
+           Object[][]datos = this.ventanaGrupo.cargaDatosTabla(this.ventanaGrupo.getGestionDato().getGrupoList().size(),3);
+           this.ventanaGrupo.setDatos(datos);
+           this.ventanaGrupo.getModeloTabla().setDataVector(this.ventanaGrupo.getDatos(), this.ventanaGrupo.getEncabezado());
+       
+       } catch (NumberFormatException ex) 
+       {
+         JOptionPane.showMessageDialog(this.ventanaGrupo, "Mal ingreso de datos");
+       } catch (ExcepcionDatoRepetido ex) 
+        {
+            JOptionPane.showMessageDialog(this.ventanaGrupo, "Cargo repetido");
+        }
         
     }
     

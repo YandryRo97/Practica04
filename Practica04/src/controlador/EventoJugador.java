@@ -7,7 +7,14 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Equipo;
+import modelo.Jugador;
+import modelo.Pais;
 import vista.VentanaJugador;
+
 
 /**
  *
@@ -39,8 +46,69 @@ public class EventoJugador implements ActionListener{
     }
     
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent e) {
         
+         
+       try
+       {
+           if (e.getSource().equals(this.ventana.getBoton()))
+           {
+           
+                Long id= Long.parseLong(this.ventana.getTxtList().get(0).getText());
+                
+                String nombre=this.ventana.getTxtList().get(1).getText();
+                
+                String apellido=this.ventana.getTxtList().get(2).getText();
+               
+                String pais=this.ventana.getCombo1().getSelectedItem().toString();
+                
+                String equipo=this.ventana.getCombo2().getSelectedItem().toString();
+               
+                for (Jugador j:this.ventana.getGestionDato().getJugadorList()) 
+                {
+                    if ((id == j.getId())&& (nombre == j.getNombre())&& (apellido == j.getApellido()) && (pais.equals(j.getPais().getNombre())) && (equipo.equals(j.getEquipo().getTorneo().getEstadio().getNombre())))
+                    {
+                        throw new ExcepcionDatoRepetido("Cargo repetido");
+                    }
+                }
+          
+           
+                for(Pais p:this.ventana.getGestionDato().getPaisList())
+                {
+               
+                    if(pais.equals(p.getNombre()))
+                    {
+                  
+                        for(Equipo equi:this.ventana.getGestionDato().getEquipoList())
+                        {
+                            if(equipo.equals(equi.getTorneo().getEstadio().getNombre()))
+                            {
+                                
+                                        Jugador juga = new Jugador(id,nombre,apellido,p,equi);
+                                        JOptionPane.showMessageDialog(this.ventana,"Guardado");
+                                        ventana.getGestionDato().getJugadorList().add(juga);
+                                        
+                                 //AQUI VA EL METODO PERSIST EQUIPO DE GESTION DATO QUE ANIADE LOS DATOS A LA TABLA DE LA BASE DE DATOS
+                                        //this.ventanaEquipo.getGestionDato().persistirEquipo(equipo);
+                                 //AQUI VA EL METODO LEE EQUIPO DE GESTION DATO QUE ANIADE LOS DATOS A LA TABLA DE LA BASE DE DATOS
+                                        //this.ventanaEquipo.getGestionDato().leerEquipo();
+                                    }
+                                }
+                            }
+                        }
+                    }
+         
+           Object[][]datos=this.ventana.cargaDatosTabla(this.ventana.getGestionDato().getJugadorList().size(),5);
+           this.ventana.setDatos(datos);
+           this.ventana.getModeloTabla().setDataVector(this.ventana.getDatos() , this.ventana.getEncabezado());
+       
+       } catch (NumberFormatException ex) 
+       {
+         JOptionPane.showMessageDialog(this.ventana, "Mal ingreso de datos");
+       } catch (ExcepcionDatoRepetido ex) 
+        {
+            JOptionPane.showMessageDialog(this.ventana, "Cargo repetido");
+        }
     }
-    
+ 
 }
